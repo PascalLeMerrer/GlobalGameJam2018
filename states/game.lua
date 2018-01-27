@@ -68,6 +68,11 @@ function Game:update(dt) -- runs every frame
     self:removeBubble(bubbleToRemove, gameNotFinished)
     if gameNotFinished then
       self:createNewBubbleAround(bubbleToRemove)
+    else
+      if #self.bubbles == 0 then
+        level = level + 1
+        Signal.emit(NEXT_STORY_SIGNAL, storyState) 
+      end
     end
   end
 

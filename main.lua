@@ -26,6 +26,10 @@ function love.load()
       Gamestate.switch(Game)
     end
   )
+  Signal.register(NEXT_STORY_SIGNAL, function(state)
+      Gamestate.switch(Story)
+    end
+  )
 
 end
 
