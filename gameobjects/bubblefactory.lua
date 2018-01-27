@@ -2,6 +2,8 @@ require "gameobjects.bubble"
 
 require "resources.texts.sentences"
 
+require "UTF8.utf8"
+
 BubbleFactory = Class{}
 
 function BubbleFactory:init()
@@ -66,7 +68,7 @@ end
 
 function BubbleFactory:getRandomString()
   local fake_text = fake_texts[level]
-  local start_index = math.random(0, #fake_text - LABEL_LENGTH)
+  local start_index = math.random(0, string.utf8len(fake_text) - LABEL_LENGTH)
   local end_index = start_index + LABEL_LENGTH
-  return string.sub(fake_text, start_index, end_index)
+  return string.utf8sub(fake_text, start_index, end_index)
 end
