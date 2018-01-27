@@ -6,7 +6,7 @@ require "gameobjects.bubble"
 require "gameobjects.bubblefactory"
 require "resources.texts.sentences"
 
-BORDER_WIDTH = 100
+BORDER_WIDTH = 200
 
 SELECTED_TEXT_HEIGHT = 50
 
@@ -130,7 +130,15 @@ end
 
 function Game:draw()
   love.graphics.setFont(self.font)
-  love.graphics.print(self.selectedSyllables, 10, WIN_HEIGHT - SELECTED_TEXT_HEIGHT)
+  local x = 10
+  for i, syllable in ipairs(self.selectedSyllables) do
+    love.graphics.print(syllable, x, WIN_HEIGHT - SELECTED_TEXT_HEIGHT)
+    local syllableWidth = self.font:getWidth(syllable)
+    x = x + syllableWidth
+  end
+  
+  
+  
   for index, bubble in ipairs(self.bubbles) do
     bubble:draw()
   end

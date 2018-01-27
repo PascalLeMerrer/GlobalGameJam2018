@@ -32,7 +32,6 @@ function Story:draw()
   love.graphics.draw(self.image, self.imageX, self.imageY)
 end
 
-
 function Story:mousereleased()
   Signal.emit(NEXT_GAME_SIGNAL, gameState) 
 end
