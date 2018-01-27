@@ -17,16 +17,16 @@ level = 1
 
 
 function love.load()
-    initializeWindow()
-    Gamestate.registerEvents()
-    Gamestate.switch(Story)
-    Gamestate.switch(Game) -- to delete
-    
-    Signal.register(NEXT_GAME_SIGNAL, function(state)
+  initializeWindow()
+  Gamestate.registerEvents()
+  Gamestate.switch(Story)
+  Gamestate.switch(Game) -- to delete
+
+  Signal.register(NEXT_GAME_SIGNAL, function(state)
       Gamestate.switch(Game)
     end
   )
-    
+
 end
 
 function initializeWindow()
@@ -34,11 +34,10 @@ function initializeWindow()
   local imgIcon = love.graphics.newImage("resources/images/shell.png") 
   love.window.setIcon(imgIcon:getData())
   love.window.setMode(WIN_WIDTH, WIN_HEIGHT)
-  
+
   font = love.graphics.newFont(32)
   love.graphics.setFont(font)
 end
-
 
 function love.keypressed(key)
   if key == "escape" then
