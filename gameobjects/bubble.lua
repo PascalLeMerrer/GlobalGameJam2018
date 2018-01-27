@@ -26,6 +26,8 @@ function Bubble:init(x, y, label, type, world)
   self.image = love.graphics.newImage("resources/images/bubbles/bubble50x50.png") 
   self.rotation = 0
 
+  local textWidth = bubbleFont:getWidth(self.label)
+  self.textOffset = textWidth / 2
 end
 
 function Bubble:__tostring()
@@ -54,11 +56,13 @@ function Bubble:update(dt)
 end
 
 function Bubble:draw()
+
   love.graphics.setFont(bubbleFont)
   local x, y = self.body:center()
 
   love.graphics.draw(self.image, x - self.radius, y - self.radius, self.rotation, self.scale, self.scale)
-  love.graphics.print(self.label, x - self.radius / 2, y, self.rotation, self.scale, self.scale)
+
+  love.graphics.print(self.label, x - self.textOffset, y, self.rotation, self.scale, self.scale)
   --self.body:draw('fill')
 end
 
