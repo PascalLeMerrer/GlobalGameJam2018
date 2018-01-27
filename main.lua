@@ -20,7 +20,7 @@ function love.load()
   initializeWindow()
   Gamestate.registerEvents()
   Gamestate.switch(Story)
-  Gamestate.switch(Game) -- to delete
+--  Gamestate.switch(Game) -- to delete
 
   Signal.register(NEXT_GAME_SIGNAL, function(state)
       Gamestate.switch(Game)
@@ -34,9 +34,6 @@ function initializeWindow()
   local imgIcon = love.graphics.newImage("resources/images/shell.png") 
   love.window.setIcon(imgIcon:getData())
   love.window.setMode(WIN_WIDTH, WIN_HEIGHT)
-
-  font = love.graphics.newFont(32)
-  love.graphics.setFont(font)
 end
 
 function love.keypressed(key)
