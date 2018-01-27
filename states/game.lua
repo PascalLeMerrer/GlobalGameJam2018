@@ -67,7 +67,7 @@ function Game:update(dt) -- runs every frame
   if bubbleToRemove ~= nil then
     self:removeBubble(bubbleToRemove, gameNotFinished)
     if gameNotFinished then
-      self:createNewBubbleAround(bubbleToRemove)
+      self:createNewBubblesAround(bubbleToRemove)
     else
       if #self.bubbles == 0 then
         level = level + 1
@@ -121,7 +121,7 @@ function Game:destroyAllBubbles()
   end
 end
 
-function Game:createNewBubbleAround(bubble)
+function Game:createNewBubblesAround(bubble)
   local newBubbles = self.bubbleFactory:createBubblesAround(bubble)
   for i, newBubble in ipairs(newBubbles) do
     table.insert(self.bubbles, newBubble)
@@ -136,8 +136,6 @@ function Game:draw()
     local syllableWidth = self.font:getWidth(syllable)
     x = x + syllableWidth
   end
-  
-  
   
   for index, bubble in ipairs(self.bubbles) do
     bubble:draw()
