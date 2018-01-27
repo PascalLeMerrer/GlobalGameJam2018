@@ -17,19 +17,28 @@ function Game:init()
   self.leftBorder = HC.rectangle(-BORDER_WIDTH, 0, BORDER_WIDTH, WIN_HEIGHT)
   self.rightBorder = HC.rectangle(WIN_WIDTH, 0, BORDER_WIDTH, WIN_HEIGHT)
 
-  self.sentence = sentences[level]
-  self.bubbles = {}
   self.bubbleFactory = BubbleFactory()
 
-
-  self.selectedSyllables = {}
   self.font = love.graphics.newFont(22)
 
 end
 
+function Game:getFirstWord()
+  local endIndex = self.sentence:find(' ')
+  return self.sentence:sub(0, endIndex - 1)
+end
+
 function Game:enter(previous) -- runs every time the state is entered
+  self.sentence = sentences[level]
+
   math.randomseed( os.time() )
-  initialBubble = self.bubbleFactory:createBubble(WIN_WIDTH / 2, WIN_HEIGHT / 2, "Morgan ", IS_RIGHT)
+  local firstWord = self:getFirstWord()
+
+  self.bubbles = {}
+  self.selectedSyllables = {}
+
+  self.bubbleFactory:reset(string.utf8len(firstWord) + 1)
+  local initialBubble = self.bubbleFactory:createBubble(WIN_WIDTH / 2, WIN_HEIGHT / 2, firstWord, IS_RIGHT)
   table.insert(self.bubbles, initialBubble)
 end
 
@@ -54,9 +63,12 @@ function Game:update(dt) -- runs every frame
     end
   end
 
+  local gameNotFinished = not self:isFinished()
   if bubbleToRemove ~= nil then
-    self:removeBubble(bubbleToRemove)
-    self:createNewBubbleAround(bubbleToRemove)
+    self:removeBubble(bubbleToRemove, gameNotFinished)
+    if gameNotFinished then
+      self:createNewBubbleAround(bubbleToRemove)
+    end
   end
 
 end
@@ -71,10 +83,9 @@ function Game:isClicked(bubble)
   if not love.mouse.isDown(1) then
     self.mouseClickProcessed = false
   end
-
 end
 
-function Game:removeBubble(bubble)
+function Game:removeBubble(bubble, addWordToSelection)
   local index = -1
   for i, registeredBubble in ipairs(self.bubbles) do
     if bubble == registeredBubble then
@@ -85,7 +96,24 @@ function Game:removeBubble(bubble)
   if index > 0 then
     table.remove(self.bubbles, index)
   end
-  table.insert(self.selectedSyllables, bubble.label)
+  
+  if addWordToSelection then
+    table.insert(self.selectedSyllables, bubble.label)
+  end
+
+  if self:isFinished() then
+    self:destroyAllBubbles()
+  end
+end
+
+function Game:isFinished()
+  return table.concat(self.selectedSyllables) == self.sentence
+end
+
+function Game:destroyAllBubbles()
+  for _, bubble in ipairs(self.bubbles) do
+    bubble:destroy()
+  end
 end
 
 function Game:createNewBubbleAround(bubble)

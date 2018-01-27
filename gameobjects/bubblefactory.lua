@@ -2,16 +2,12 @@ require "gameobjects.bubble"
 
 require "resources.texts.sentences"
 
-require "UTF8.utf8"
+
 
 BubbleFactory = Class{}
 
-function BubbleFactory:init()
-  self:reset()
-end
-
-function BubbleFactory:reset()
-  self.nextSolutionPartIndex = 0
+function BubbleFactory:reset(index)
+  self.nextSolutionPartIndex = index
 end
 
 function BubbleFactory:createBubblesAround(bubble)

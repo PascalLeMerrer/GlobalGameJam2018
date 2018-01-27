@@ -1,5 +1,5 @@
 sentences = {
-  "s'il-te-plait emmène-moi avec toi.",
+  "Morgan s'il-te-plait emmène-moi avec toi",
   "seconde phrase à deviner",
   "troisième phrase à deviner"
 }

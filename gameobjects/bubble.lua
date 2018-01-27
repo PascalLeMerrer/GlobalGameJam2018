@@ -78,8 +78,6 @@ end
 function Bubble:draw()
 
   local x, y = self.body:center()
-
-  -- love.graphics.draw(self.image, x - self.radius, y - self.radius, self.rotation, self.scale, self.scale)
   self.destructionAnimation:draw(image, x - self.radius, y - self.radius)
 
   love.graphics.setFont(bubbleFont)
