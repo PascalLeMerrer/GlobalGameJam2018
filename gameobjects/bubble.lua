@@ -10,12 +10,14 @@ LABEL_LENGTH = 4
 DEFAULT_SPEED = 50
 MIN_SPEED = 5
 
-local bubbleFont = love.graphics.newFont(12)
+RADIUS = 50
+
+local bubbleFont = love.graphics.newFont(24)
 
 function Bubble:init(x, y, label, type, world)
   self.type = type
   self.label = label
-  self.radius = 25
+  self.radius = RADIUS
   self.scale = 1
   self.body = HC.circle(x, y, self.radius * self.scale)
   self.x, self.y = self.body:center()
@@ -23,7 +25,7 @@ function Bubble:init(x, y, label, type, world)
   self.body.velocity.x = math.random(-DEFAULT_SPEED, DEFAULT_SPEED)
   self.body.velocity.y = math.random(-DEFAULT_SPEED, DEFAULT_SPEED)
 
-  self.image = love.graphics.newImage("resources/images/bubbles/bubble50x50.png") 
+  self.image = love.graphics.newImage("resources/images/bubbles/bubble100x100.png") 
   self.rotation = 0
 
   local textWidth = bubbleFont:getWidth(self.label)
