@@ -21,9 +21,9 @@ function BubbleFactory:createBubblesAround(bubble)
     local label = self:getNextPartOfSolution()
     local newBubble = self:createBubble(x, y, label, IS_RIGHT)
     table.insert(bubbles, newBubble)
-    random_bubble_count = 3
+    random_bubble_count = 2
   else
-    random_bubble_count = 4
+    random_bubble_count = 3
   end
 
   for i = 1, random_bubble_count do
