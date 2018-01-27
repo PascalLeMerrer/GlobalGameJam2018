@@ -24,7 +24,7 @@ function Bubble:__tostring()
   return "bubble [ radius = " .. self.radius .. ", label = \"" .. self.label .. "\" ]"
 end
 
-function Bubble:is_right()
+function Bubble:isRight()
   return self.type == IS_RIGHT
 end
 

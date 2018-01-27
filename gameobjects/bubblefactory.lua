@@ -10,8 +10,8 @@ function BubbleFactory:createBubblesAround(bubble)
   -- 4 with random texts otherwise
   local bubbles = {}
 
-  if bubble:is_right() then
-    local x, y = self:get_random_coordinates_around(bubble.x, bubble.y, bubble.radius)
+  if bubble:isRight() then
+    local x, y = self:getRandomCoordinatesAround(bubble.x, bubble.y, bubble.radius)
     local label = "OK" -- TODO get the next unused part in sentence
     local bubble = self:createBubble(x, y, label, IS_RIGHT)
     table.insert(bubbles, bubble)
@@ -21,8 +21,8 @@ function BubbleFactory:createBubblesAround(bubble)
   end
 
   for i = 1, random_bubble_count do
-    local x, y = self:get_random_coordinates_around(bubble.x, bubble.y, bubble.radius)
-    local randomLabel = self:get_random_string() 
+    local x, y = self:getRandomCoordinatesAround(bubble.x, bubble.y, bubble.radius)
+    local randomLabel = self:getRandomString() 
     local bubble = self:createBubble(x, y, randomLabel, IS_WRONG)
     table.insert(bubbles, bubble)
   end
@@ -30,7 +30,7 @@ function BubbleFactory:createBubblesAround(bubble)
   return bubbles
 end
 
-function BubbleFactory:  get_random_coordinates_around(x_pos, y_pos, radius)
+function BubbleFactory:  getRandomCoordinatesAround(x_pos, y_pos, radius)
   local angle = math.random(0, 2 * math.pi)
   local dx = math.cos(angle) * radius
   local dy = math.sin(angle) * radius
@@ -41,7 +41,11 @@ function BubbleFactory:createBubble(x, y, label, type)
   return Bubble(x, y, label, type)
 end
 
-function BubbleFactory:get_random_string()
+function getNextPartOfSolution()
+  return ""
+end
+
+function BubbleFactory:getRandomString()
   local fake_text = fake_texts[level]
   local start_index = math.random(0, #fake_text - LABEL_LENGTH)
   local end_index = start_index + LABEL_LENGTH
