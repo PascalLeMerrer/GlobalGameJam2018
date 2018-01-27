@@ -27,7 +27,6 @@ function love.load()
     end
   )
     
-    
 end
 
 function initializeWindow()

@@ -25,12 +25,37 @@ function Game:enter(previous) -- runs every time the state is entered
   math.randomseed( os.time() )
   self.intialBubble = self.bubbleFactory:createBubble(WIN_WIDTH / 2, WIN_HEIGHT / 2, "OK", IS_RIGHT)
   self.bubbles = self.bubbleFactory:createBubblesAround(self.intialBubble)
+  self:removeBubble(self.intialBubble)
 end
 
 function Game:update(dt) -- runs every frame
+  local isClicked = love.mouse.isDown(1)
+  local mouseX, mouseY = love.mouse.getPosition()
   for index, bubble in ipairs(self.bubbles) do
-    bubble:update(dt)
+    if isClicked then
+      if bubble:isOver(mouseX, mouseY) then
+        self:removeBubble(bubble)
+      else
+        bubble:update(dt)
+      end
+    else
+      bubble:update(dt)
+    end
   end
+end
+
+function Game:removeBubble(bubble)
+  local index = -1
+  for i, registeredBubble in ipairs(self.bubbles) do
+    if bubble == registeredBubble then
+      index = i
+      break
+    end
+  end
+  if index > 0 then
+    table.remove(self.bubbles, index)
+  end
+  bubble:destroy()
 end
 
 function Game:draw()

@@ -65,5 +65,13 @@ function Bubble:repulse(otherBody, separatingVector)
   self.body.velocity.y = separatingVector.y / len * DEFAULT_SPEED * math.random(0.8, 1.2)
 end
 
+function Bubble:isOver(x, y)
+  local dx = self.x - x
+  local dy = self.y - y
+  local distance = math.sqrt(dx^2 + dy^2)
+  return distance <= self.radius
+end
 
+function Bubble:destroy()
+  HC.remove(self.body)
 end
