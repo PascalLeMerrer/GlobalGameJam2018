@@ -2,6 +2,9 @@ Class = require 'hump.class'
 
 Bubble = Class{}
 
+local anim8 = require 'anim8.anim8'
+local image, animation
+
 IS_RIGHT = 1
 IS_WRONG = 0
 
@@ -11,6 +14,10 @@ DEFAULT_SPEED = 50
 MIN_SPEED = 5
 
 RADIUS = 50
+
+FRAMES_FOR_DESTRUCTION_ANIMATION = '1-4'
+ANIMATION_STEP_DURATION = 0.1 -- in seconds
+FRAME_ROW = 1 -- all images are on one row
 
 local bubbleFont = love.graphics.newFont(24)
 
@@ -30,6 +37,14 @@ function Bubble:init(x, y, label, type, world)
 
   local textWidth = bubbleFont:getWidth(self.label)
   self.textOffset = textWidth / 2
+
+  image = love.graphics.newImage("resources/images/bubbles/bubbleBurst100x100.png")
+  local grid = anim8.newGrid(100, 100, image:getWidth(), image:getHeight())
+  self.destructionAnimation = anim8.newAnimation(grid(FRAMES_FOR_DESTRUCTION_ANIMATION, FRAME_ROW), ANIMATION_STEP_DURATION, 'pauseAtEnd')
+  self.destructionAnimation:pause()
+
+  self.isDestroyed = false
+  self.isBeingDestroyed = false
 end
 
 function Bubble:__tostring()
@@ -47,18 +62,30 @@ function Bubble:update(dt)
     self:repulse(otherBody, separatingVector)
   end
 
-  self.body:move(self.body.velocity.x * dt, self.body.velocity.y * dt)
-  self.x, self.y = self.body:center()
+  if not self.isBeingDestroyed and not self.isDestroyed then
+    self.body:move(self.body.velocity.x * dt, self.body.velocity.y * dt)
+    self.x, self.y = self.body:center()
+  end
+  self.destructionAnimation:update(dt)
+
+  if self.destructionAnimation.status == 'paused' and self.isBeingDestroyed then
+    self.isBeingDestroyed = false
+    self.isDestroyed = true
+  end
+
 end
 
 function Bubble:draw()
 
-  love.graphics.setFont(bubbleFont)
   local x, y = self.body:center()
 
-  love.graphics.draw(self.image, x - self.radius, y - self.radius, self.rotation, self.scale, self.scale)
+  -- love.graphics.draw(self.image, x - self.radius, y - self.radius, self.rotation, self.scale, self.scale)
+  self.destructionAnimation:draw(image, x - self.radius, y - self.radius)
 
-  love.graphics.print(self.label, x - self.textOffset, y, self.rotation, self.scale, self.scale)
+  love.graphics.setFont(bubbleFont)
+  if not self.isBeingDestroyed then
+    love.graphics.print(self.label, x - self.textOffset, y, self.rotation, self.scale, self.scale)
+  end
 end
 
 function Bubble:repulse(otherBody, separatingVector)
@@ -77,4 +104,6 @@ end
 
 function Bubble:destroy()
   HC.remove(self.body)
+  self.destructionAnimation:resume()
+  self.isBeingDestroyed = true
 end

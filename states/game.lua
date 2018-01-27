@@ -20,11 +20,11 @@ function Game:init()
   self.sentence = sentences[level]
   self.bubbles = {}
   self.bubbleFactory = BubbleFactory()
-  
-  
+
+
   self.selectedSyllables = {}
   self.font = love.graphics.newFont(22)
-  
+
 end
 
 function Game:enter(previous) -- runs every time the state is entered
@@ -45,9 +45,12 @@ function Game:update(dt) -- runs every frame
   local bubbleToRemove = nil
   for index, bubble in ipairs(self.bubbles) do
     if self:isClicked(bubble) then
-      bubbleToRemove = bubble
+      bubble:destroy()
     else
       bubble:update(dt)
+      if bubble.isDestroyed then
+        bubbleToRemove = bubble
+      end
     end
   end
 
@@ -83,7 +86,6 @@ function Game:removeBubble(bubble)
     table.remove(self.bubbles, index)
   end
   table.insert(self.selectedSyllables, bubble.label)
-  bubble:destroy()
 end
 
 function Game:createNewBubbleAround(bubble)
