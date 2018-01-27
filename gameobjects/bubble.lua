@@ -21,7 +21,7 @@ function Bubble:init(x, y, label, type)
 end
 
 function Bubble:__tostring()
-  return "bubble [ radius = " .. self.radius .. ", label = \"" .. self.label .. "\" ]"
+  return "bubble [ x = " .. self.x .. ", y = " .. self.y .. ", label = \"" .. self.label .. "\" ]"
 end
 
 function Bubble:isRight()
