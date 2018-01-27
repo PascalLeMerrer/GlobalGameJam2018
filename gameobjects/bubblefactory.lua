@@ -63,6 +63,7 @@ function BubbleFactory:getNextPartOfSolution()
   if endIndex > #sentence then
     endIndex = #sentence
   end
+  self.nextSolutionPartIndex = endIndex + 1
   return string.sub(sentence, startIndex, endIndex)
 end
 
