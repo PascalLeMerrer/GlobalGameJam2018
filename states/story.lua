@@ -10,7 +10,7 @@ function Story:init()
   self.imageX = WIN_WIDTH - HORIZONTAL_MARGIN - self.image:getWidth()
   self.imageY = WIN_HEIGHT - self.image:getHeight()
 
-  self.font = love.graphics.newFont(22)
+  self.font = love.graphics.newFont(20)
   self.lineHeight = self.font:getHeight()
 end
 
