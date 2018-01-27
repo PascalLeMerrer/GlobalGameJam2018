@@ -8,22 +8,28 @@ require "resources.texts.sentences"
 
 BORDER_WIDTH = 100
 
+SELECTED_TEXT_HEIGHT = 50
+
 function Game:init()
   Collider = HC.new(100)
   self.topBorder = HC.rectangle(0, -BORDER_WIDTH, WIN_WIDTH, BORDER_WIDTH) -- x, y, width, height
-  self.bottomBorder = HC.rectangle(0, WIN_HEIGHT, WIN_WIDTH, BORDER_WIDTH)
+  self.bottomBorder = HC.rectangle(0, WIN_HEIGHT - SELECTED_TEXT_HEIGHT, WIN_WIDTH, BORDER_WIDTH)
   self.leftBorder = HC.rectangle(-BORDER_WIDTH, 0, BORDER_WIDTH, WIN_HEIGHT)
   self.rightBorder = HC.rectangle(WIN_WIDTH, 0, BORDER_WIDTH, WIN_HEIGHT)
 
   self.sentence = sentences[level]
   self.bubbles = {}
   self.bubbleFactory = BubbleFactory()
-
+  
+  
+  self.selectedSyllables = {}
+  self.font = love.graphics.newFont(22)
+  
 end
 
 function Game:enter(previous) -- runs every time the state is entered
   math.randomseed( os.time() )
-  initialBubble = self.bubbleFactory:createBubble(WIN_WIDTH / 2, WIN_HEIGHT / 2, "OK", IS_RIGHT)
+  initialBubble = self.bubbleFactory:createBubble(WIN_WIDTH / 2, WIN_HEIGHT / 2, "Morgan ", IS_RIGHT)
   table.insert(self.bubbles, initialBubble)
 end
 
@@ -76,6 +82,7 @@ function Game:removeBubble(bubble)
   if index > 0 then
     table.remove(self.bubbles, index)
   end
+  table.insert(self.selectedSyllables, bubble.label)
   bubble:destroy()
 end
 
@@ -87,7 +94,8 @@ function Game:createNewBubbleAround(bubble)
 end
 
 function Game:draw()
-  -- love.graphics.print(self.sentence, 10, 10)
+  love.graphics.setFont(self.font)
+  love.graphics.print(self.selectedSyllables, 10, WIN_HEIGHT - SELECTED_TEXT_HEIGHT)
   for index, bubble in ipairs(self.bubbles) do
     bubble:draw()
   end
