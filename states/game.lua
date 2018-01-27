@@ -17,7 +17,8 @@ function Game:init()
 
   self.sentence = sentences[level]
   self.bubbles = {}
-  self.bubbleFactory = BubbleFactory(self)
+  self.bubbleFactory = BubbleFactory()
+
 end
 
 function Game:enter(previous) -- runs every time the state is entered
@@ -38,4 +39,3 @@ function Game:draw()
     bubble:draw()
   end
 end
-

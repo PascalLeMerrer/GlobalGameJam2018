@@ -4,8 +4,7 @@ require "resources.texts.sentences"
 
 BubbleFactory = Class{}
 
-function BubbleFactory:init(world)
-  self.world = world
+function BubbleFactory:init()
   self:reset()
 end
 
@@ -48,7 +47,7 @@ function BubbleFactory:getRandomCoordinatesAround(x_pos, y_pos, radius)
 end
 
 function BubbleFactory:createBubble(x, y, label, type)
-  return Bubble(x, y, label, type, self.world)
+  return Bubble(x, y, label, type)
 end
 
 function BubbleFactory:getNextPartOfSolution()
