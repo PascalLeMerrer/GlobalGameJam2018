@@ -2,6 +2,8 @@ Class = require 'hump.class'
 
 Bubble = Class{}
 
+local bubbleFont = love.graphics.newFont(12)
+
 function Bubble:init(x, y, radius, label)
   self.label = label
   self.radius = radius
@@ -17,5 +19,8 @@ function Bubble:__tostring()
 end
 
 function Bubble:draw()
+  love.graphics.setFont(bubbleFont)
   love.graphics.draw(self.image, self.x, self.y, self.rotation, self.scale, self.scale)
+  love.graphics.print(self.label, self.x + self.radius / 2, self.y + self.radius, self.rotation, self.scale, self.scale)
+end
 end
