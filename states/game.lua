@@ -23,25 +23,46 @@ end
 
 function Game:enter(previous) -- runs every time the state is entered
   math.randomseed( os.time() )
-  self.intialBubble = self.bubbleFactory:createBubble(WIN_WIDTH / 2, WIN_HEIGHT / 2, "OK", IS_RIGHT)
-  self.bubbles = self.bubbleFactory:createBubblesAround(self.intialBubble)
-  self:removeBubble(self.intialBubble)
+  initialBubble = self.bubbleFactory:createBubble(WIN_WIDTH / 2, WIN_HEIGHT / 2, "OK", IS_RIGHT)
+  table.insert(self.bubbles, initialBubble)
+end
+
+function Game:setMouseClicked(x, y)
+  self.isClicked = true
+  self.mouseX = x
+  self.mouseY = y
 end
 
 function Game:update(dt) -- runs every frame
   local isClicked = love.mouse.isDown(1)
   local mouseX, mouseY = love.mouse.getPosition()
+  local bubbleToRemove = nil
   for index, bubble in ipairs(self.bubbles) do
-    if isClicked then
-      if bubble:isOver(mouseX, mouseY) then
-        self:removeBubble(bubble)
-      else
-        bubble:update(dt)
-      end
+    if self:isClicked(bubble) then
+      bubbleToRemove = bubble
     else
       bubble:update(dt)
     end
   end
+
+  if bubbleToRemove ~= nil then
+    self:removeBubble(bubbleToRemove)
+    self:createNewBubbleAround(bubbleToRemove)
+  end
+
+end
+
+function Game:isClicked(bubble)
+  if love.mouse.isDown(1) and not self.mouseClickProcessed then
+    local mouseIsOverBubble = bubble:isOver(love.mouse.getX(), love.mouse.getY()) 
+    self.mouseClickProcessed = mouseIsOverBubble
+    return mouseIsOverBubble
+  end
+
+  if not love.mouse.isDown(1) then
+    self.mouseClickProcessed = false
+  end
+
 end
 
 function Game:removeBubble(bubble)
@@ -56,6 +77,13 @@ function Game:removeBubble(bubble)
     table.remove(self.bubbles, index)
   end
   bubble:destroy()
+end
+
+function Game:createNewBubbleAround(bubble)
+  local newBubbles = self.bubbleFactory:createBubblesAround(bubble)
+  for i, newBubble in ipairs(newBubbles) do
+    table.insert(self.bubbles, newBubble)
+  end
 end
 
 function Game:draw()

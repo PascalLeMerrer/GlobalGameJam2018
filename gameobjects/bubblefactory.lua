@@ -19,7 +19,6 @@ function BubbleFactory:createBubblesAround(bubble)
   local bubbles = {}
 
   if bubble:isRight() then
-    --displayTable(bubble)
     local x, y = self:getRandomCoordinatesAround(bubble.x, bubble.y, bubble.radius)
     local label = self:getNextPartOfSolution()
     local newBubble = self:createBubble(x, y, label, IS_RIGHT)

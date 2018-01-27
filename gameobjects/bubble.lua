@@ -66,8 +66,9 @@ function Bubble:repulse(otherBody, separatingVector)
 end
 
 function Bubble:isOver(x, y)
-  local dx = self.x - x
-  local dy = self.y - y
+  local _x, _y = self.body:center()
+  local dx = _x - x
+  local dy = _y - y
   local distance = math.sqrt(dx^2 + dy^2)
   return distance <= self.radius
 end
