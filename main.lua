@@ -9,6 +9,7 @@ Signal = require 'hump.signal'
 require "constants"
 require "resources.sentences"
 require "resources.texts"
+require "resources.illustrations"
 require "states.story"
 require "states.game"
 
@@ -30,8 +31,8 @@ end
 
 function initializeWindow()
   love.window.setTitle(TITLE) 
-  -- local imgIcon = love.graphics.newImage(ICON_PATH) 
-  -- love.window.setIcon(imgIcon:getData())
+  local imgIcon = love.graphics.newImage("resources/images/coquillage.png") 
+  love.window.setIcon(imgIcon:getData())
   love.window.setMode(WIN_WIDTH, WIN_HEIGHT)
   
   font = love.graphics.newFont(32)
