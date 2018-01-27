@@ -20,6 +20,7 @@ function love.load()
     initializeWindow()
     Gamestate.registerEvents()
     Gamestate.switch(Story)
+    Gamestate.switch(Game) -- to delete
     
     Signal.register(NEXT_GAME_SIGNAL, function(state)
       Gamestate.switch(Game)
@@ -31,7 +32,7 @@ end
 
 function initializeWindow()
   love.window.setTitle(TITLE) 
-  local imgIcon = love.graphics.newImage("resources/images/coquillage.png") 
+  local imgIcon = love.graphics.newImage("resources/images/shell.png") 
   love.window.setIcon(imgIcon:getData())
   love.window.setMode(WIN_WIDTH, WIN_HEIGHT)
   

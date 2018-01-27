@@ -7,7 +7,7 @@ function Bubble:init(x, y, radius, label)
   self.radius = radius
   self.x = x
   self.y = y
-  self.image = love.graphics.newImage("resources/images/bulle.png") 
+  self.image = love.graphics.newImage("resources/images/bubbles/bubble50x50.png") 
   self.rotation = 0
   self.scale = 1
 end

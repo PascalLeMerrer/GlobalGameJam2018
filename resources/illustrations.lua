@@ -1,3 +1,3 @@
 illustrations = {
-  "resources/images/coquillage.png"
+  "resources/images/shell.png"
   }
