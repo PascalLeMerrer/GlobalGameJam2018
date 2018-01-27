@@ -1,7 +1,10 @@
 Story = {}
 
+require "resources.texts.chapters"
+
 function Story:init()
-    self.text = texts[level]
+    self.text = chapters[level]
+    self.image = love.graphics.newImage(illustrations[level]) 
 end
 
 function Story:enter(previous) -- runs every time the state is entered
@@ -12,6 +15,7 @@ end
 
 function Story:draw()
   love.graphics.print(self.text, 10, 10)
+  love.graphics.draw(self.image, 200, 200)
 end
 
 
