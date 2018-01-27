@@ -6,6 +6,7 @@ if arg[#arg] == "-debug" then require("mobdebug").start() end
 Gamestate = require "hump.gamestate"
 Signal = require 'hump.signal'
 
+require "debugTable"
 require "constants"
 require "resources.texts.sentences"
 require "resources.illustrations"
