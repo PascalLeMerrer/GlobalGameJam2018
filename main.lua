@@ -12,6 +12,7 @@ require "resources.texts.sentences"
 require "resources.illustrations"
 require "states.story"
 require "states.game"
+require "states.gameover"
 
 level = 1
 
@@ -22,12 +23,16 @@ function love.load()
   Gamestate.switch(Story)
 --  Gamestate.switch(Game) -- to delete
 
-  Signal.register(NEXT_GAME_SIGNAL, function(state)
+  Signal.register(NEXT_GAME_SIGNAL, function()
       Gamestate.switch(Game)
     end
   )
-  Signal.register(NEXT_STORY_SIGNAL, function(state)
+  Signal.register(NEXT_STORY_SIGNAL, function()
       Gamestate.switch(Story)
+    end
+  )
+  Signal.register(END_GAME_SIGNAL, function()
+      Gamestate.switch(GameOver)
     end
   )
 

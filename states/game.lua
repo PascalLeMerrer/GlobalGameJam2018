@@ -10,6 +10,8 @@ BORDER_WIDTH = 200
 
 SELECTED_TEXT_HEIGHT = 50
 
+MAX_BUBBLES = 31
+
 function Game:init()
   Collider = HC.new(100)
   self.topBorder = HC.rectangle(0, -BORDER_WIDTH, WIN_WIDTH, BORDER_WIDTH) -- x, y, width, height
@@ -68,10 +70,13 @@ function Game:update(dt) -- runs every frame
     self:removeBubble(bubbleToRemove, gameNotFinished)
     if gameNotFinished then
       self:createNewBubblesAround(bubbleToRemove)
+      if #self.bubbles > MAX_BUBBLES then
+        Signal.emit(END_GAME_SIGNAL)
+      end
     else
       if #self.bubbles == 0 then
         level = level + 1
-        Signal.emit(NEXT_STORY_SIGNAL, storyState) 
+        Signal.emit(NEXT_STORY_SIGNAL) 
       end
     end
   end
