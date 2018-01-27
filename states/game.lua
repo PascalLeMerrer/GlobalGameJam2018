@@ -4,10 +4,11 @@ HC = require 'HardonCollider'
 
 require "gameobjects.bubble"
 require "gameobjects.bubblefactory"
+require "gameobjects.syllable"
 require "resources.texts.sentences"
 
 BORDER_WIDTH = 200
-
+SPACE_BETWEEN_CHARS = 5
 SELECTED_TEXT_HEIGHT = 50
 
 MAX_BUBBLES = 31
@@ -106,9 +107,9 @@ function Game:removeBubble(bubble, addWordToSelection)
   if index > 0 then
     table.remove(self.bubbles, index)
   end
-  
+
   if addWordToSelection then
-    table.insert(self.selectedSyllables, bubble.label)
+    self:createSyllable(bubble.label)
   end
 
   if self:isFinished() then
@@ -116,8 +117,23 @@ function Game:removeBubble(bubble, addWordToSelection)
   end
 end
 
+function Game:createSyllable(label)
+  local x = 10
+  if #self.selectedSyllables > 0 then
+    local lastSyllable = self.selectedSyllables[#self.selectedSyllables]
+    x = lastSyllable:getMaxX() + SPACE_BETWEEN_CHARS
+  end
+  local y = WIN_HEIGHT - SELECTED_TEXT_HEIGHT
+  local syllable = Syllable(x, y, label)
+  table.insert(self.selectedSyllables, syllable)
+end
+
 function Game:isFinished()
-  return table.concat(self.selectedSyllables) == self.sentence
+  local selectedSyllables = ""
+  for i, syllable in ipairs(self.selectedSyllables) do
+    selectedSyllables = selectedSyllables .. syllable.label
+  end
+  return selectedSyllables == self.sentence
 end
 
 function Game:destroyAllBubbles()
@@ -135,13 +151,10 @@ end
 
 function Game:draw()
   love.graphics.setFont(self.font)
-  local x = 10
   for i, syllable in ipairs(self.selectedSyllables) do
-    love.graphics.print(syllable, x, WIN_HEIGHT - SELECTED_TEXT_HEIGHT)
-    local syllableWidth = self.font:getWidth(syllable)
-    x = x + syllableWidth
+    syllable:draw()
   end
-  
+
   for index, bubble in ipairs(self.bubbles) do
     bubble:draw()
   end
