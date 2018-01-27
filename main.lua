@@ -7,8 +7,7 @@ Gamestate = require "hump.gamestate"
 Signal = require 'hump.signal'
 
 require "constants"
-require "resources.sentences"
-require "resources.texts"
+require "resources.texts.sentences"
 require "resources.illustrations"
 require "states.story"
 require "states.game"

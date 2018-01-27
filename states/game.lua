@@ -1,16 +1,20 @@
 Game = {}
 
+
 require "gameobjects.bubble"
-
-
+require "gameobjects.bubblefactory"
+require "resources.texts.sentences"
 
 function Game:init()
   self.sentence = sentences[level]
   self.bubbles = {}
+  self.bubbleFactory = BubbleFactory()
 end
 
 function Game:enter(previous) -- runs every time the state is entered
-  self:createBubble()
+  math.randomseed( os.time() )
+  self.intialBubble = self.bubbleFactory:createBubble(WIN_WIDTH / 2, WIN_HEIGHT / 2, "OK", IS_RIGHT)
+  self.bubbles = self.bubbleFactory:createBubblesAround(self.intialBubble)
 end
 
 function Game:update(dt) -- runs every frame
@@ -22,4 +26,4 @@ function Game:draw()
     bubble:draw()
   end
 end
-
+  

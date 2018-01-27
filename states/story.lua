@@ -1,7 +1,9 @@
 Story = {}
 
+require "resources.texts.chapters"
+
 function Story:init()
-    self.text = texts[level]
+    self.text = chapters[level]
     self.image = love.graphics.newImage(illustrations[level]) 
 end
 

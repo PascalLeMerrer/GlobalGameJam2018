@@ -2,11 +2,17 @@ Class = require 'hump.class'
 
 Bubble = Class{}
 
+IS_RIGHT = 1
+IS_WRONG = 0
+
+LABEL_LENGTH = 4
+
 local bubbleFont = love.graphics.newFont(12)
 
-function Bubble:init(x, y, radius, label)
+function Bubble:init(x, y, label, type)
+  self.type = type
   self.label = label
-  self.radius = radius
+  self.radius = 25
   self.x = x
   self.y = y
   self.image = love.graphics.newImage("resources/images/bubbles/bubble50x50.png") 
@@ -16,6 +22,10 @@ end
 
 function Bubble:__tostring()
   return "bubble [ radius = " .. self.radius .. ", label = \"" .. self.label .. "\" ]"
+end
+
+function Bubble:is_right()
+  return self.type == IS_RIGHT
 end
 
 function Bubble:draw()
