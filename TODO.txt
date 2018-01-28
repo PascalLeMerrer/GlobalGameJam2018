@@ -1,0 +1,12 @@
+- ajouter les sons
+- Afficher les syllabes sélectionnées sur deux lignes si besoin
+- insérer des images plus grosses dans l'écran de fin
+- afficher les textes sur plusieurs pages
+- insérer les bonnes images pour chaque étape
+- si niveau > 1, les textes tournent et autres difficultés
+- animation à l'apparition des bulles
+- changer la couleur des syllabes survolées
+
+- nom
+- écran d'accueil
+- écran de fin

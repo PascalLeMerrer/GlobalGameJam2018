@@ -1,24 +1,32 @@
 Story = {}
 
-require "resources.texts.chapters"
-
 HORIZONTAL_MARGIN = 10
 
 function Story:init()
-
-  self.image = love.graphics.newImage(illustrations[level]) 
-  self.imageX = WIN_WIDTH - HORIZONTAL_MARGIN - self.image:getWidth()
-  self.imageY = WIN_HEIGHT - self.image:getHeight()
-
   self.font = love.graphics.newFont(20)
   self.lineHeight = self.font:getHeight()
 end
 
 function Story:enter(previous) -- runs every time the state is entered
-  local chapter = chapters[level]
+
+  self.currentPartIndex = 1
+  self.partCount = #levels[level]["chapters"]
+
+  self:load()
+end
+
+function Story:load()
+  local level = levels[level]
+  local chapter = level["chapters"][self.currentPartIndex]
+  local text = chapter["story"]
+
   local wrapLimit = WIN_WIDTH - 2 * HORIZONTAL_MARGIN
-  local width, wrappedtext = self.font:getWrap( chapter, wrapLimit )
+  local width, wrappedtext = self.font:getWrap( text, wrapLimit )
   self.lines = wrappedtext 
+
+  self.image = love.graphics.newImage(chapter["illustration"]) 
+  self.imageX = WIN_WIDTH - HORIZONTAL_MARGIN - self.image:getWidth()
+  self.imageY = WIN_HEIGHT - self.image:getHeight()
 end
 
 function Story:update(dt) -- runs every frame
@@ -34,5 +42,14 @@ function Story:draw()
 end
 
 function Story:mousereleased()
-  Signal.emit(NEXT_GAME_SIGNAL) 
+  self.currentPartIndex = self.currentPartIndex + 1
+  if self.currentPartIndex > self.partCount then
+    if level == LAST_LEVEL then
+      Signal.emit(GAME_END_SIGNAL) 
+    else
+      Signal.emit(NEXT_GAME_SIGNAL) 
+    end
+  else
+    self:load()
+  end
 end

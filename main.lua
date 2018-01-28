@@ -8,11 +8,18 @@ Signal = require 'hump.signal'
 require "UTF8.utf8"
 require "debugTable"
 require "constants"
-require "resources.texts.sentences"
-require "resources.illustrations"
+
+levels = {}
+require "levels.level1"
+require "levels.level2"
+require "levels.level3"
+require "levels.level4"
+require "levels.level5"
+
 require "states.story"
 require "states.game"
 require "states.gameover"
+require "states.gameend"
 
 level = 1
 
@@ -31,8 +38,12 @@ function love.load()
       Gamestate.switch(Story)
     end
   )
-  Signal.register(END_GAME_SIGNAL, function()
+  Signal.register(GAME_OVER_SIGNAL, function()
       Gamestate.switch(GameOver)
+    end
+  )
+  Signal.register(GAME_END_SIGNAL, function()
+      Gamestate.switch(GameEnd)
     end
   )
 
@@ -46,6 +57,11 @@ function initializeWindow()
 end
 
 function love.keypressed(key)
+
+  if key == "space" and Gamestate.current() == Game then
+    level = level + 1
+    Signal.emit(NEXT_STORY_SIGNAL)
+  end
   if key == "escape" then
     love.event.quit()
   end

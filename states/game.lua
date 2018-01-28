@@ -5,7 +5,6 @@ HC = require 'HardonCollider'
 require "gameobjects.bubble"
 require "gameobjects.bubblefactory"
 require "gameobjects.syllable"
-require "resources.texts.sentences"
 
 BORDER_WIDTH = 200
 SPACE_BETWEEN_CHARS = 5
@@ -32,7 +31,7 @@ function Game:getFirstWord()
 end
 
 function Game:enter(previous) -- runs every time the state is entered
-  self.sentence = sentences[level]
+  self.sentence = levels[level]["sentence"]
 
   math.randomseed( os.time() )
   local firstWord = self:getFirstWord()
@@ -72,7 +71,7 @@ function Game:update(dt) -- runs every frame
     if gameNotFinished then
       self:createNewBubblesAround(bubbleToRemove)
       if #self.bubbles > MAX_BUBBLES then
-        Signal.emit(END_GAME_SIGNAL)
+        Signal.emit(GAME_OVER_SIGNAL)
       end
     else
       if #self.bubbles == 0 then
