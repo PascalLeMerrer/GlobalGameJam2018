@@ -6,7 +6,7 @@ function GameOver:init()
 
   self.image = love.graphics.newImage(levels[level]["endIllustration"]) 
   self.imageX = (WIN_WIDTH - HORIZONTAL_MARGIN - self.image:getWidth()) / 2
-  
+
   self.font = love.graphics.newFont(22)
   self.lineHeight = self.font:getHeight()
 end
@@ -29,7 +29,7 @@ function GameOver:draw()
     love.graphics.print(line, HORIZONTAL_MARGIN, i * self.lineHeight)
     textHeight = textHeight + self.lineHeight
   end
-  
-    local imageY = WIN_HEIGHT - self.image:getHeight() - (WIN_HEIGHT - textHeight - self.image:getHeight()) / 2
-  love.graphics.draw(self.image, self.imageX, self.imageY)
+
+  local imageY = WIN_HEIGHT - self.image:getHeight() - (WIN_HEIGHT - textHeight - self.image:getHeight()) / 2
+  love.graphics.draw(self.image, self.imageX, imageY)
 end
