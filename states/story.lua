@@ -25,8 +25,8 @@ function Story:load()
   self.lines = wrappedtext 
 
   self.image = love.graphics.newImage(chapter["illustration"]) 
-  self.imageX = WIN_WIDTH - HORIZONTAL_MARGIN - self.image:getWidth()
-  self.imageY = WIN_HEIGHT - self.image:getHeight()
+  self.imageX = (WIN_WIDTH - HORIZONTAL_MARGIN - self.image:getWidth()) / 2
+  self.imageY = WIN_HEIGHT - self.image:getHeight() - 100
 end
 
 function Story:update(dt) -- runs every frame
