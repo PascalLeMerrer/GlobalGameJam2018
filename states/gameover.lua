@@ -25,6 +25,7 @@ function GameOver:update(dt) -- runs every frame
 end
 
 function GameOver:draw()
+  love.graphics.setColor(255, 255, 255)    
   love.graphics.setFont(self.font)
   for i, line in ipairs(self.lines) do
     love.graphics.print(line, HORIZONTAL_MARGIN, i * self.lineHeight)

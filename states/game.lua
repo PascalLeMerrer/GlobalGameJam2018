@@ -82,6 +82,16 @@ function Game:update(dt) -- runs every frame
     end
   end
 
+  self:updateSyllables()
+
+end
+
+function Game:updateSyllables()
+  local mouseX = love.mouse.getX()
+  local mouseY = love.mouse.getY()
+  for i, syllable in ipairs(self.selectedSyllables) do
+    syllable.highlight = syllable:isOver(mouseX, mouseY)
+  end 
 end
 
 function Game:isClicked(bubble)
@@ -150,6 +160,7 @@ function Game:createNewBubblesAround(bubble)
 end
 
 function Game:draw()
+  love.graphics.setColor(255, 255, 255)    
   love.graphics.setFont(self.font)
   for i, syllable in ipairs(self.selectedSyllables) do
     syllable:draw()

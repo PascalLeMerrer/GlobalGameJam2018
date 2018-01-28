@@ -76,7 +76,7 @@ function Bubble:update(dt)
 end
 
 function Bubble:draw()
-
+  love.graphics.setColor(255, 255, 255)
   local x, y = self.body:center()
   self.destructionAnimation:draw(image, x - self.radius, y - self.radius)
 

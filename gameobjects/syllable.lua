@@ -11,27 +11,28 @@ function Syllable:init(x, y, label)
   self.y = y
   self.scale = 1
   self.body = HC.rectangle(x, y, self.width * self.scale, self.height * self.scale)
-  self.isHovered = false
+  self.highlight = false
 end
 
 function Syllable:getMaxX()
-    return self.x + self.width
-end
-
-function Syllable:update(dt)
-
+  return self.x + self.width
 end
 
 function Syllable:draw()
-    love.graphics.print(self.label, self.x, self.y, 0, self.scale, self.scale)
+  if self.highlight then
+    love.graphics.setColor(255, 0, 0)
+  else
+    love.graphics.setColor(255, 255, 255)    
+  end
+
+  love.graphics.print(self.label, self.x, self.y, 0, self.scale, self.scale)
 end
 
 function Syllable:isOver(x, y)
-  local _x, _y = self.body:center()
-  local dx = _x - x
-  local dy = _y - y
-  local distance = math.sqrt(dx^2 + dy^2)
-  return distance <= self.radius
+  return self.x <= x 
+  and self.x + self.width >= x 
+  and self.y <= y
+  and self.y + self.height >= y
 end
 
 function Syllable:destroy()
