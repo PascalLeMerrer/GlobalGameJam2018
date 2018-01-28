@@ -1,11 +1,18 @@
 -- pour écrire dans la console au fur et à mesure, facilitant ainsi le débogage
 io.stdout:setvbuf('no') 
 
-if arg[#arg] == "-debug" then require("mobdebug").start() end
+local debug = false
+
+if arg[#arg] == "-debug" then
+  debug = true
+  require("mobdebug").start()
+end
 
 Gamestate = require "hump.gamestate"
 Signal = require 'hump.signal'
 Class = require 'hump.class'
+Timer = require "hump.timer"
+
 require "UTF8.utf8"
 require "debugTable"
 require "constants"
@@ -63,9 +70,12 @@ end
 
 function love.keypressed(key)
 
-  if key == "space" and Gamestate.current() == Game then
+  if key == "space" and Gamestate.current() == Game and debug then
     level = level + 1
     Signal.emit(NEXT_STORY_SIGNAL)
+  end
+  if key == "e" and debug then
+    Signal.emit(GAME_END_SIGNAL)
   end
   if key == "escape" then
     love.event.quit()

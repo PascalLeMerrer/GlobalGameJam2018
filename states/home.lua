@@ -17,14 +17,15 @@ function Home:init()
   self.imageX = (WIN_WIDTH - HORIZONTAL_MARGIN - self.image:getWidth()) / 2
   self.imageY = WIN_HEIGHT - self.image:getHeight() - (WIN_HEIGHT - self.textY - self.image:getHeight()) / 2
   
-  Timer.after(2.5, function() 
+  self.timer = Timer.new()
+  self.timer:after(2.5, function() 
       Signal.emit(NEXT_STORY_SIGNAL)
     end)
-
+  
 end
 
 function Home:update(dt)
-  Timer.update(dt)
+  self.timer:update(dt)
 end
 
 function Home:draw()
