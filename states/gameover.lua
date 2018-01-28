@@ -4,7 +4,7 @@ HORIZONTAL_MARGIN = 10
 
 function GameOver:init()
 
-  self.image = love.graphics.newImage(endIllustrations[level]) 
+  self.image = love.graphics.newImage(levels[level]["endIllustration"]) 
   self.imageX = WIN_WIDTH - HORIZONTAL_MARGIN - self.image:getWidth()
   self.imageY = WIN_HEIGHT - self.image:getHeight()
 
