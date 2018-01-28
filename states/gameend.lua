@@ -1,29 +1,34 @@
 GameEnd = {}
 
+Timer = require "hump.timer"
+
 HORIZONTAL_MARGIN = 10
 
 function GameEnd:init()
-  self.font = love.graphics.newFont(20)
+  self.font = love.graphics.newFont(32)
   self.lineHeight = self.font:getHeight()
 
-  text = "FIN"
-  local wrapLimit = WIN_WIDTH - 2 * HORIZONTAL_MARGIN
-  local width, wrappedtext = self.font:getWrap( text, wrapLimit )
-  self.lines = wrappedtext 
+  self.text = "FIN"
+  local textWidth = self.font:getWidth(self.text)
+  self.textX = (WIN_WIDTH - textWidth) / 2
+  self.textY = WIN_HEIGHT * 0.25
 
---  self.image = love.graphics.newImage(chapter["illustration"]) 
---  self.imageX = WIN_WIDTH - HORIZONTAL_MARGIN - self.image:getWidth()
---  self.imageY = WIN_HEIGHT - self.image:getHeight()
+  self.image = love.graphics.newImage('resources/images/shell.png') 
+  self.imageX = (WIN_WIDTH - HORIZONTAL_MARGIN - self.image:getWidth()) / 2
+  self.imageY = WIN_HEIGHT - self.image:getHeight() - (WIN_HEIGHT - self.textY - self.image:getHeight()) / 2
+  
 end
 
-function GameOver:update(dt) -- runs every frame
+function GameEnd:update(dt)
+
 end
 
 function GameEnd:draw()
   love.graphics.setColor(255, 255, 255)    
   love.graphics.setFont(self.font)
-  for i, line in ipairs(self.lines) do
-    love.graphics.print(line, HORIZONTAL_MARGIN, i * self.lineHeight)
-  end
---  love.graphics.draw(self.image, self.imageX, self.imageY)
+
+  love.graphics.print(self.text, self.textX, self.textY)
+
+  love.graphics.draw(self.image, self.imageX, self.imageY)
+
 end
