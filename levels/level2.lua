@@ -4,7 +4,8 @@ levels[2] = {
       illustration = "resources/images/shell.png"
     },
     { story = "Jeudi 1er mars.\n\nEnfin, je peux souffler. Après des mois à squatter chez les potes en Bretagne, je m’installe enfin dans mon propre chez-moi. J’ai encore plein d’affaires dans les cartons, je prends mon temps pour tout installer. De toute façon mon appartement est trop petit, il va falloir faire du tri … Les vieux Lucky Luke de quand j’étais petit … poubelle, je ne les lirai plus. Des cartes Pokemon ? Mais pourquoi j’ai gardé ça ? Ah tiens, le coquillage que j’ai trouvé en janvier dernier. J’aurais mieux fait de le laisser sur sa plage, vu la tête qu’Emma a tiré quand je lui ai affirmé que le coquillage m’avait parlé. C’était surement un peu con de lui avoir parlé de ça juste après avoir annoncé mon déménagement pour Paris ... Comme si j’avais eu le choix. Elle me manque. Et merde, j’étais bien et ce foutu coquillage a réussi à me foutre le cafard. Allez, poub... Des bulles ! Il recommence !",
-      illustration = "resources/images/movingBox.png"
+      illustration = "resources/images/movingBox.png",
+      sound = "resources/sounds/MovingOn.wav"
     }
   },
   sentence = "Ton amie la plus chère court un grand danger",

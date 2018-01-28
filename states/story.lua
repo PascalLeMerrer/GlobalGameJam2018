@@ -27,6 +27,12 @@ function Story:load()
   self.image = love.graphics.newImage(chapter["illustration"]) 
   self.imageX = (WIN_WIDTH - HORIZONTAL_MARGIN - self.image:getWidth()) / 2
 
+  local sound = chapter["sound"]
+  if sound ~= nil then
+    self.sound = love.audio.newSource({sound}, 'static')
+    love.audio.play(self.sound)
+  end
+
 end
 
 function Story:update(dt) -- runs every frame
@@ -45,6 +51,7 @@ function Story:draw()
 end
 
 function Story:mousereleased()
+  love.audio.stop()
   self.currentPartIndex = self.currentPartIndex + 1
   if self.currentPartIndex > self.partCount then
     if level == LAST_LEVEL then

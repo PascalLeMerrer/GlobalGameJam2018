@@ -2,11 +2,13 @@ levels[1] = {
   chapters = {
     { story =
       "Dimanche 28 janvier.\n\nLe ciel est dégagé pour la première fois depuis des jours. Le soleil d’hiver réchauffe doucement l’atmosphère, mais la matinée reste fraiche. Au moins, je suis seul et peux profiter pleinement de la plage, avec seulement les cris de goélands pour ponctuer le calme ambiant. Deux d’entre eux se chamaillent pour les restes d’un crabe malchanceux, qui n’a pas su se cacher à temps avant la marée basse. En se retirant, la mer laisse toujours des trésors derrière elle, pour qui sait en profiter.",
-      illustration = "resources/images/shell.png"
+      illustration = "resources/images/shell.png",
+      sound = "resources/sounds/Beach.wav"
     },
     { story =
       "Tiens, à propos de trésor, ce coquillage est vraiment impressionnant ! Quand j’étais gosse, j’aurais été fou en voyant ça. Un gros coquillage bien bombé, le type parfait pour … Bah, c’est encore un truc qu’on raconte aux gamins mais, allez, ça ne coûte rien d’essayer … La vache, c’est vrai que c’est bluffant, on croirait vraiment entendre la mer là-dedans ! On dirait même entendre les bulles d’écume éclater au soleil ! …Hein ? Mais c’est qu’il y a vraiment des bulles qui sortent de ce machin !",
-      illustration = "resources/images/shell.png"
+      illustration = "resources/images/shell.png",
+      sound = "resources/sounds/Beach.wav"
     }
   },
   sentence = "Morgan s'il-te-plait emmène-moi avec toi",

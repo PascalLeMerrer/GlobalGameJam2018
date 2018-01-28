@@ -4,7 +4,8 @@ levels[3] = {
       illustration = "resources/images/imageFrame.png"
     },
     { story = "Samedi 3 mars\n\nJe n’ai presque pas dormi depuis jeudi. Je crois ne jamais avoir bu autant de café en si peu de temps. Des jours et des nuits à essayer de comprendre ce qu’il m’arrive. C’est quoi ce foutu bordel ? J’ai épuisé toutes les pistes qui me sont venues : histoires de marins, vieilles légendes bizarres, communications aliens, … je me suis même tapé des pavés entiers sur la biologie des mollusques, et toujours aucune information concluante sur ce maudit coquillage ! Et Emma qui ne répond pas ... Je ferais mieux d’aller me coucher.",
-      illustration = "resources/images/cupOfTea.png"
+      illustration = "resources/images/cupOfTea.png",
+      sound = "resources/sounds/Booking.wav"
     }
   },
   sentence = "Si tu ne fais rien, tu perdras ton amie à cause des vents violents",

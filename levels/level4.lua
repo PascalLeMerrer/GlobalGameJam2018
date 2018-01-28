@@ -4,7 +4,8 @@ levels[4] = {
       illustration = "resources/images/shell.png"
     },
     { story = "Vendredi 9 mars\n\nFacebook, Instagram, Twitter, LinkedIn ... me voilà sur internet à espionner les moindres faits et gestes d’Emma à la recherche d’un indice. J’ai même fini par trouver le mot de passe de sa boite mail. « Croquette35 », pas très compliqué. Je connais tout de sa vie maintenant. Si elle savait … Elle a une vie bien remplie : soirées cinéma, concerts, réunions de boulot, game jam, week end chez ses parents, … Ok, je sais même des trucs que j’aurais préféré ignorer sur ses problèmes de mycoses, mais rien qui est un rapport avec ce putain de vent !",
-      illustration = "resources/images/imageFrame.png"
+      illustration = "resources/images/imageFrame.png",
+      sound = "resources/sounds/Computing.wav"
     },
     { story="Lundi 12 mars\n\nÇa y est, je deviens fou. Je me retrouve à vénérer un coquillage comme si c’était un dieu. À le prier, qu’il me donne une bribe d’information supplémentaire qui me permettrait de protéger Emma … Pitié … Une bulle ! Miracle ! Une bulle dans l’opercule !",
       illustration = "resources/images/imageFrame.png"
