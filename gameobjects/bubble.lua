@@ -30,7 +30,6 @@ function Bubble:init(x, y, label, type, world)
   self.body.velocity.x = math.random(-DEFAULT_SPEED, DEFAULT_SPEED)
   self.body.velocity.y = math.random(-DEFAULT_SPEED, DEFAULT_SPEED)
 
-  self.image = love.graphics.newImage("resources/images/bubbles/bubble100x100.png") 
   self.rotation = 0
 
   local textWidth = bubbleFont:getWidth(self.label)
