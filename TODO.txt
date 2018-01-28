@@ -1,5 +1,3 @@
-- Afficher les syllabes sélectionnées sur deux lignes si besoin
-
 - revoir les positions de toutes les images
 - insérer des images plus grosses dans l'écran de fin
 - si niveau > 1, les textes tournent et autres difficultés
