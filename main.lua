@@ -17,6 +17,7 @@ require "levels.level3"
 require "levels.level4"
 require "levels.level5"
 
+require "states.home"
 require "states.story"
 require "states.game"
 require "states.gameover"
@@ -32,8 +33,7 @@ function love.load()
 
   soundManager = SoundManager()
   Gamestate.registerEvents()
-  Gamestate.switch(Story)
---  Gamestate.switch(Game) -- to delete
+  Gamestate.switch(Home)
 
   Signal.register(NEXT_GAME_SIGNAL, function()
       Gamestate.switch(Game)

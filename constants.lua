@@ -1,5 +1,5 @@
-TITLE = "Brouille d'écoute"
--- ICON_PATH = "images/icon.png"
+TITLE = "Merci coquillage !"
+--ICON_PATH = "ressources/images/icon.png"
 WIN_WIDTH = 480
 WIN_HEIGHT = 780
 NEXT_STORY_SIGNAL = "next story"
