@@ -2,16 +2,12 @@ require "gameobjects.bubble"
 
 require "resources.texts.sentences"
 
-require "UTF8.utf8"
+
 
 BubbleFactory = Class{}
 
-function BubbleFactory:init()
-  self:reset()
-end
-
-function BubbleFactory:reset()
-  self.nextSolutionPartIndex = 0
+function BubbleFactory:reset(index)
+  self.nextSolutionPartIndex = index
 end
 
 function BubbleFactory:createBubblesAround(bubble)
@@ -25,9 +21,9 @@ function BubbleFactory:createBubblesAround(bubble)
     local label = self:getNextPartOfSolution()
     local newBubble = self:createBubble(x, y, label, IS_RIGHT)
     table.insert(bubbles, newBubble)
-    random_bubble_count = 3
+    random_bubble_count = 2
   else
-    random_bubble_count = 4
+    random_bubble_count = 3
   end
 
   for i = 1, random_bubble_count do
