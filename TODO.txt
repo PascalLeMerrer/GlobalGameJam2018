@@ -1,10 +1,12 @@
-- revoir les positions de toutes les images
-- insérer des images plus grosses dans l'écran de fin
-- si niveau > 1, les textes tournent et autres difficultés
+
+
 - animation à l'apparition des bulles
-- ajouter un fond derrière les syllabes sélectionnées
+
+- crédits
+
+
+- si niveau > 1, les textes tournent et autres difficultés
+
+
 - faire varier la taille des bulles
 
-- nom
-- écran d'accueil
-- écran de fin
