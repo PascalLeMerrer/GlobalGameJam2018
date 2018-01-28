@@ -16,11 +16,11 @@ function GameEnd:init()
   self.image = love.graphics.newImage('resources/images/shell.png') 
   self.imageX = (WIN_WIDTH - HORIZONTAL_MARGIN - self.image:getWidth()) / 2
   self.imageY = WIN_HEIGHT - self.image:getHeight() - (WIN_HEIGHT - self.textY - self.image:getHeight()) / 2
-  
+
 end
 
-function GameEnd:update(dt)
-
+function GameEnd:enter()
+  soundManager:playEndMusic()
 end
 
 function GameEnd:draw()

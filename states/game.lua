@@ -50,7 +50,7 @@ function Game:enter(previous) -- runs every time the state is entered
   local initialBubble = self.bubbleFactory:createBubble(WIN_WIDTH / 2, WIN_HEIGHT / 2, firstWord, IS_RIGHT)
   table.insert(self.bubbles, initialBubble)
   
-  soundManager:playGameSound()
+  soundManager:playGameMusic()
 end
 
 function Game:setMouseClicked(x, y)
