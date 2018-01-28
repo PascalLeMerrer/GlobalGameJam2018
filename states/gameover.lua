@@ -16,6 +16,8 @@ function GameOver:enter(previous) -- runs every time the state is entered
   local wrapLimit = WIN_WIDTH - 2 * HORIZONTAL_MARGIN
   local width, wrappedtext = self.font:getWrap( endText, wrapLimit )
   self.lines = wrappedtext 
+  
+  soundManager:playGameOverSound()
 end
 
 function GameOver:update(dt) -- runs every frame

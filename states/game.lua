@@ -49,6 +49,8 @@ function Game:enter(previous) -- runs every time the state is entered
   self.bubbleFactory:reset(string.utf8len(firstWord) + 1)
   local initialBubble = self.bubbleFactory:createBubble(WIN_WIDTH / 2, WIN_HEIGHT / 2, firstWord, IS_RIGHT)
   table.insert(self.bubbles, initialBubble)
+  
+  soundManager:playGameSound()
 end
 
 function Game:setMouseClicked(x, y)
@@ -79,11 +81,13 @@ function Game:update(dt) -- runs every frame
     if gameNotFinished then
       self:createNewBubblesAround(bubbleToRemove)
       if #self.bubbles > MAX_BUBBLES then
+        love.audio.stop()
         Signal.emit(GAME_OVER_SIGNAL)
       end
     else
       if #self.bubbles == 0 then
         level = level + 1
+        love.audio.stop()
         Signal.emit(NEXT_STORY_SIGNAL) 
       end
     end
