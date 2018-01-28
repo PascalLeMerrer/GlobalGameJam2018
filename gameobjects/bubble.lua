@@ -19,6 +19,8 @@ ANIMATION_STEP_DURATION = 0.1 -- in seconds
 FRAME_ROW_DESTRUCTION = 1 -- all images are on one row
 FRAME_ROW_SPAWN = 2 -- all images are on one row
 SPAWNING_ANIMATION_DURATION = 0.7
+MAX_ROTATION_SPEED = 0.1
+
 
 local bubbleFont = love.graphics.newFont(24)
 
@@ -34,9 +36,13 @@ function Bubble:init(x, y, label, type, world)
   self.body.velocity.y = math.random(-DEFAULT_SPEED, DEFAULT_SPEED)
 
   self.rotation = 0
+  self.rotationSpeed = (level - 1) * math.random(-MAX_ROTATION_SPEED, MAX_ROTATION_SPEED)
 
   local textWidth = bubbleFont:getWidth(self.label)
-  self.textOffset = textWidth / 2
+  self.textOffsetX = textWidth / 2
+  local textHeight = bubbleFont:getHeight(self.label)
+  self.textOffsetY = textHeight / 2
+  
 
   image = love.graphics.newImage("resources/images/bubbles/bubbleAnimation100x100.png")
 
@@ -63,6 +69,8 @@ function Bubble:isRight()
 end
 
 function Bubble:update(dt)
+  self.rotation = self.rotation + self.rotationSpeed * dt
+  
   local collisions = HC.collisions(self.body)
   local x, y = self.body:center()
   for otherBody, separatingVector in pairs(collisions) do   
@@ -85,17 +93,20 @@ function Bubble:update(dt)
 end
 
 function Bubble:draw()
-  love.graphics.setColor(255, 255, 255)
+  love.graphics.setColor(255, 255, 255)  
   local x, y = self.body:center()
-  if self.isSpawning then
-    self.spawnAnimation:draw(image, x - self.radius, y - self.radius, 0, self.scale, self.scale)
-  else
-    self.destructionAnimation:draw(image, x - self.radius, y - self.radius, 0, self.scale, self.scale)
-  end
-
+  
   love.graphics.setFont(bubbleFont)
   if not self.isBeingDestroyed and not self.isSpawning then
-    love.graphics.print(self.label, x - self.textOffset, y, self.rotation, self.scale, self.scale)
+    love.graphics.print(self.label, x, y, self.rotation, self.scale, self.scale, self.textOffsetX, self.textOffsetY)
+  end
+
+  local animationX = x - self.radius
+  local animationY = y - self.radius
+  if self.isSpawning then
+    self.spawnAnimation:draw(image, animationX, animationY, self.rotation, self.scale, self.scale, 0, 0)
+  else
+    self.destructionAnimation:draw(image, x - self.radius, y - self.radius, 0, self.scale, self.scale, 0, 0)
   end
 end
 
