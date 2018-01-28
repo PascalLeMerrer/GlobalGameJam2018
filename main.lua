@@ -5,6 +5,7 @@ if arg[#arg] == "-debug" then require("mobdebug").start() end
 
 Gamestate = require "hump.gamestate"
 Signal = require 'hump.signal'
+Class = require 'hump.class'
 require "UTF8.utf8"
 require "debugTable"
 require "constants"
@@ -21,11 +22,15 @@ require "states.game"
 require "states.gameover"
 require "states.gameend"
 
+require "gameobjects.soundmanager"
+
 level = 1
 
 
 function love.load()
   initializeWindow()
+
+  soundManager = SoundManager()
   Gamestate.registerEvents()
   Gamestate.switch(Story)
 --  Gamestate.switch(Game) -- to delete

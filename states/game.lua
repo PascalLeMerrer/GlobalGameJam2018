@@ -22,7 +22,7 @@ function Game:init()
   self.bubbleFactory = BubbleFactory()
 
   self.font = love.graphics.newFont(22)
-
+  self.fontHeight = self.font:getHeight()
 end
 
 function Game:getFirstWord()
@@ -57,6 +57,7 @@ function Game:update(dt) -- runs every frame
   for index, bubble in ipairs(self.bubbles) do
     if self:isClicked(bubble) then
       bubble:destroy()
+      soundManager:playBubblePopSound()
     else
       bubble:update(dt)
       if bubble.isDestroyed then
@@ -177,6 +178,7 @@ function Game:destroyAllBubbles()
   for _, bubble in ipairs(self.bubbles) do
     bubble:destroy()
   end
+  soundManager:playAllBubbleBurstSound()
 end
 
 function Game:createNewBubblesAround(bubble)

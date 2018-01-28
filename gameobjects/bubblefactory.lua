@@ -40,6 +40,7 @@ function BubbleFactory:getRandomCoordinatesAround(x_pos, y_pos, radius)
 end
 
 function BubbleFactory:createBubble(x, y, label, type)
+  soundManager:playBubbleSpawnSound()
   return Bubble(x, y, label, type)
 end
 

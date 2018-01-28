@@ -1,5 +1,3 @@
-Class = require 'hump.class'
-
 Bubble = Class{}
 
 local anim8 = require 'anim8.anim8'
