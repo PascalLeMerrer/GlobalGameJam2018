@@ -6,11 +6,11 @@ require "gameobjects.bubble"
 require "gameobjects.bubblefactory"
 require "gameobjects.syllable"
 
-BORDER_WIDTH = 200
-SPACE_BETWEEN_CHARS = 5
-SELECTED_TEXT_HEIGHT = 50
-
-MAX_BUBBLES = 31
+local BORDER_WIDTH = 200
+local SPACE_BETWEEN_CHARS = 5
+local SELECTED_TEXT_HEIGHT = 52
+local HORIZONTAL_MARGIN = 10
+local MAX_BUBBLES = 31
 
 function Game:init()
   Collider = HC.new(100)
@@ -23,6 +23,13 @@ function Game:init()
 
   self.font = love.graphics.newFont(22)
   self.fontHeight = self.font:getHeight()
+
+  self.syllableFont = love.graphics.newFont(SYLLABLE_FONT_SIZE)
+
+  self.selectionBackgroundImage = love.graphics.newImage('resources/images/woodPlank.png') 
+  self.selectionBackgroundImageX = 0
+  self.selectionBackgroundImageY = WIN_HEIGHT - self.selectionBackgroundImage:getHeight()
+
 end
 
 function Game:getFirstWord()
@@ -103,6 +110,34 @@ function Game:updateSyllables()
       self.mouseClickProcessed = true
     end
   end
+
+  self:updateSyllablePosition()
+
+end
+
+function Game:updateSyllablePosition()
+
+  local x = HORIZONTAL_MARGIN
+  local line = 0
+  local previousSyllable = nil
+  for i, syllable in ipairs(self.selectedSyllables) do
+
+    if previousSyllable ~= nil then
+      x = previousSyllable:getMaxX() + SPACE_BETWEEN_CHARS
+    end
+    previousSyllable = syllable
+    
+    -- TODO modify syllable class to avoid doing this here
+    local syllableWidth = self.syllableFont:getWidth(syllable.label)
+    if x + syllableWidth > WIN_WIDTH - HORIZONTAL_MARGIN then
+      line = 1
+      x = HORIZONTAL_MARGIN
+    end
+
+    syllable.x = x
+    syllable.y = WIN_HEIGHT - SELECTED_TEXT_HEIGHT + line * self.fontHeight
+    
+  end
 end
 
 function Game:removeSyllable(syllable)
@@ -156,13 +191,7 @@ function Game:removeBubble(bubble, addWordToSelection)
 end
 
 function Game:createSyllable(label)
-  local x = 10
-  if #self.selectedSyllables > 0 then
-    local lastSyllable = self.selectedSyllables[#self.selectedSyllables]
-    x = lastSyllable:getMaxX() + SPACE_BETWEEN_CHARS
-  end
-  local y = WIN_HEIGHT - SELECTED_TEXT_HEIGHT
-  local syllable = Syllable(x, y, label)
+  local syllable = Syllable(0, 0, label)
   table.insert(self.selectedSyllables, syllable)
 end
 
@@ -189,6 +218,8 @@ function Game:createNewBubblesAround(bubble)
 end
 
 function Game:draw()
+  love.graphics.draw(self.selectionBackgroundImage, self.selectionBackgroundImageX, self.selectionBackgroundImageY)
+
   love.graphics.setColor(255, 255, 255)    
   love.graphics.setFont(self.font)
   for i, syllable in ipairs(self.selectedSyllables) do

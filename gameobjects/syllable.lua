@@ -2,9 +2,11 @@ Class = require 'hump.class'
 
 Syllable = Class{}
 
+SYLLABLE_FONT_SIZE = 20
+
 function Syllable:init(x, y, label)
   self.label = label
-  self.font = love.graphics.newFont(20)
+  self.font = love.graphics.newFont(SYLLABLE_FONT_SIZE)
   self.width = self.font:getWidth(self.label)
   self.height = self.font:getHeight()
   self.x = x
@@ -20,7 +22,7 @@ end
 
 function Syllable:draw()
   if self.highlight then
-    love.graphics.setColor(255, 0, 0)
+    love.graphics.setColor(209, 156, 111)
   else
     love.graphics.setColor(255, 255, 255)    
   end
