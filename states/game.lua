@@ -46,13 +46,13 @@ function Game:enter(previous) -- runs every time the state is entered
 end
 
 function Game:setMouseClicked(x, y)
-  self.isClicked = true
+--  self.isClicked = true
   self.mouseX = x
   self.mouseY = y
 end
 
 function Game:update(dt) -- runs every frame
-  local isClicked = love.mouse.isDown(1)
+--  local isClicked = love.mouse.isDown(1)
   local mouseX, mouseY = love.mouse.getPosition()
   local bubbleToRemove = nil
   for index, bubble in ipairs(self.bubbles) do
@@ -84,14 +84,46 @@ function Game:update(dt) -- runs every frame
 
   self:updateSyllables()
 
+  if not love.mouse.isDown(1) then
+    self.mouseClickProcessed = false
+  end
+
 end
 
 function Game:updateSyllables()
   local mouseX = love.mouse.getX()
   local mouseY = love.mouse.getY()
+  local previousSyllableX = 0
+
   for i, syllable in ipairs(self.selectedSyllables) do
     syllable.highlight = syllable:isOver(mouseX, mouseY)
-  end 
+
+    if syllable.highlight and love.mouse.isDown(1) and not self.mouseClickProcessed  then
+      self:removeSyllable(syllable)
+      self.mouseClickProcessed = true
+    end
+  end
+end
+
+function Game:removeSyllable(syllable)
+  local index = -1
+  local shiftLeft = false
+  local previousSyllableX = 0
+  for i, selectedSyllable in ipairs(self.selectedSyllables) do
+    if shiftLeft then
+      local tempX = selectedSyllable.x
+      selectedSyllable.x = previousSyllableX
+      previousSyllableX = tempX
+    end
+    if syllable == selectedSyllable then
+      index = i
+      previousSyllableX = syllable.x
+      shiftLeft = true
+    end
+  end
+  if index > 0 then
+    table.remove(self.selectedSyllables, index)
+  end
 end
 
 function Game:isClicked(bubble)
@@ -99,10 +131,6 @@ function Game:isClicked(bubble)
     local mouseIsOverBubble = bubble:isOver(love.mouse.getX(), love.mouse.getY()) 
     self.mouseClickProcessed = mouseIsOverBubble
     return mouseIsOverBubble
-  end
-
-  if not love.mouse.isDown(1) then
-    self.mouseClickProcessed = false
   end
 end
 
