@@ -3,6 +3,7 @@ require 'slam.slam'
 SoundManager = Class{}
 
 function SoundManager:init()
+  -- TODO renaming
   self.bubblePopSound = love.audio.newSource({'resources/sounds/bubblePopping.wav'}, 'static')
   self.allbubbleBurstSound = love.audio.newSource({'resources/sounds/allBubbleBurst.wav'}, 'static')
   self.bubbleSpawnSound = love.audio.newSource({'resources/sounds/bubbleSpawn.wav'}, 'static')
