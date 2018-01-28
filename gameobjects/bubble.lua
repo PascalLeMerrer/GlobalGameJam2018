@@ -14,8 +14,11 @@ MIN_SPEED = 5
 RADIUS = 50
 
 FRAMES_FOR_DESTRUCTION_ANIMATION = '1-4'
+FRAMES_FOR_SPAWN_ANIMATION = '1-7'
 ANIMATION_STEP_DURATION = 0.1 -- in seconds
-FRAME_ROW = 1 -- all images are on one row
+FRAME_ROW_DESTRUCTION = 1 -- all images are on one row
+FRAME_ROW_SPAWN = 2 -- all images are on one row
+SPAWNING_ANIMATION_DURATION = 0.7
 
 local bubbleFont = love.graphics.newFont(24)
 
@@ -36,12 +39,20 @@ function Bubble:init(x, y, label, type, world)
   self.textOffset = textWidth / 2
 
   image = love.graphics.newImage("resources/images/bubbles/bubbleAnimation100x100.png")
-  local grid = anim8.newGrid(100, 100, image:getWidth(), image:getHeight())
-  self.destructionAnimation = anim8.newAnimation(grid(FRAMES_FOR_DESTRUCTION_ANIMATION, FRAME_ROW), ANIMATION_STEP_DURATION, 'pauseAtEnd')
-  self.destructionAnimation:pause()
 
+  local grid = anim8.newGrid(100, 100, image:getWidth(), image:getHeight())
+  self.destructionAnimation = anim8.newAnimation(grid(FRAMES_FOR_DESTRUCTION_ANIMATION, FRAME_ROW_DESTRUCTION), ANIMATION_STEP_DURATION, 'pauseAtEnd')
+  self.destructionAnimation:pause()
   self.isDestroyed = false
   self.isBeingDestroyed = false
+
+
+  self.spawnAnimation = anim8.newAnimation(grid(FRAMES_FOR_SPAWN_ANIMATION, FRAME_ROW_SPAWN), ANIMATION_STEP_DURATION, function()
+      self.isSpawning = false
+      return 'pauseAtEnd'
+    end)
+  self.isSpawning = true
+
 end
 
 function Bubble:__tostring()
@@ -63,6 +74,8 @@ function Bubble:update(dt)
     self.body:move(self.body.velocity.x * dt, self.body.velocity.y * dt)
     self.x, self.y = self.body:center()
   end
+
+  self.spawnAnimation:update(dt)
   self.destructionAnimation:update(dt)
 
   if self.destructionAnimation.status == 'paused' and self.isBeingDestroyed then
@@ -75,10 +88,14 @@ end
 function Bubble:draw()
   love.graphics.setColor(255, 255, 255)
   local x, y = self.body:center()
-  self.destructionAnimation:draw(image, x - self.radius, y - self.radius)
+  if self.isSpawning then
+    self.spawnAnimation:draw(image, x - self.radius, y - self.radius)
+  else
+    self.destructionAnimation:draw(image, x - self.radius, y - self.radius)
+  end
 
   love.graphics.setFont(bubbleFont)
-  if not self.isBeingDestroyed then
+  if not self.isBeingDestroyed and not self.isSpawning then
     love.graphics.print(self.label, x - self.textOffset, y, self.rotation, self.scale, self.scale)
   end
 end
