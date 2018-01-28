@@ -1,5 +1,3 @@
-Class = require 'hump.class'
-
 Bubble = Class{}
 
 local anim8 = require 'anim8.anim8'
@@ -38,7 +36,7 @@ function Bubble:init(x, y, label, type, world)
   local textWidth = bubbleFont:getWidth(self.label)
   self.textOffset = textWidth / 2
 
-  image = love.graphics.newImage("resources/images/bubbles/bubbleBurst100x100.png")
+  image = love.graphics.newImage("resources/images/bubbles/bubbleAnimation100x100.png")
   local grid = anim8.newGrid(100, 100, image:getWidth(), image:getHeight())
   self.destructionAnimation = anim8.newAnimation(grid(FRAMES_FOR_DESTRUCTION_ANIMATION, FRAME_ROW), ANIMATION_STEP_DURATION, 'pauseAtEnd')
   self.destructionAnimation:pause()

@@ -1,9 +1,5 @@
 require "gameobjects.bubble"
 
-require "resources.texts.sentences"
-
-
-
 BubbleFactory = Class{}
 
 function BubbleFactory:reset(index)
@@ -44,6 +40,7 @@ function BubbleFactory:getRandomCoordinatesAround(x_pos, y_pos, radius)
 end
 
 function BubbleFactory:createBubble(x, y, label, type)
+  soundManager:playBubbleSpawnSound()
   return Bubble(x, y, label, type)
 end
 
@@ -52,7 +49,7 @@ function BubbleFactory:getNextPartOfSolution()
   -- when the solution was found, returns an empty string
   local startIndex = self.nextSolutionPartIndex
   local endIndex = startIndex + LABEL_LENGTH
-  local sentence = sentences[level]
+  local sentence = levels[level]["sentence"]
   if startIndex > #sentence then
     return ""
   end
@@ -64,7 +61,7 @@ function BubbleFactory:getNextPartOfSolution()
 end
 
 function BubbleFactory:getRandomString()
-  local fake_text = fake_texts[level]
+  local fake_text = levels[level]["fake_text"]
   local start_index = math.random(0, string.utf8len(fake_text) - LABEL_LENGTH)
   local end_index = start_index + LABEL_LENGTH
   return string.utf8sub(fake_text, start_index, end_index)

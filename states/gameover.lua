@@ -1,7 +1,5 @@
 GameOver = {}
 
-require "resources.texts.ends"
-
 HORIZONTAL_MARGIN = 10
 
 function GameOver:init()
@@ -15,7 +13,7 @@ function GameOver:init()
 end
 
 function GameOver:enter(previous) -- runs every time the state is entered
-  local endText = endTexts[level]
+  local endText = levels[level]["endText"]
   local wrapLimit = WIN_WIDTH - 2 * HORIZONTAL_MARGIN
   local width, wrappedtext = self.font:getWrap( endText, wrapLimit )
   self.lines = wrappedtext 
