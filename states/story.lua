@@ -26,7 +26,7 @@ function Story:load()
 
   self.image = love.graphics.newImage(chapter["illustration"]) 
   self.imageX = (WIN_WIDTH - HORIZONTAL_MARGIN - self.image:getWidth()) / 2
-  self.imageY = WIN_HEIGHT - self.image:getHeight() - 100
+
 end
 
 function Story:update(dt) -- runs every frame
@@ -35,10 +35,13 @@ end
 function Story:draw()
   love.graphics.setColor(255, 255, 255)    
   love.graphics.setFont(self.font)
+  local textHeight = 0
   for i, line in ipairs(self.lines) do
     love.graphics.print(line, HORIZONTAL_MARGIN, i * self.lineHeight)
+    textHeight = textHeight + self.lineHeight
   end
-  love.graphics.draw(self.image, self.imageX, self.imageY)
+  local imageY = WIN_HEIGHT - self.image:getHeight() - (WIN_HEIGHT - textHeight - self.image:getHeight()) / 2
+  love.graphics.draw(self.image, self.imageX, imageY)
 end
 
 function Story:mousereleased()
