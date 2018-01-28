@@ -1,10 +1,10 @@
 levels[3] = {
   chapters = {
     { story = "Allo Emma ? … Euh oui ça va … j’ai bien emménagé oui mais … attends, écoute. Il faut que je te parle … C’est à propos du coquillage … Oui, celui-là ... Écoute Emma, c’est con je sais mais le coquillage m’a transmis un nouveau message où il parlait de toi : il dit que tu es en danger … J’aimerais bien mais non, j’ai rien fumé … Mais non, j’essaie pas de te faire flipper ! … Emma calme-toi ! Je sais que c’est complètement con mais imagine si c’est vrai ! … Emma ? Emma ? … Et merde.",
-      illustration = "resources/images/shell.png"
+      illustration = "resources/images/imageFrame.png"
     },
     { story = "Samedi 3 mars\n\nJe n’ai presque pas dormi depuis jeudi. Je crois ne jamais avoir bu autant de café en si peu de temps. Des jours et des nuits à essayer de comprendre ce qu’il m’arrive. C’est quoi ce foutu bordel ? J’ai épuisé toutes les pistes qui me sont venues : histoires de marins, vieilles légendes bizarres, communications aliens, … je me suis même tapé des pavés entiers sur la biologie des mollusques, et toujours aucune information concluante sur ce maudit coquillage ! Et Emma qui ne répond pas ... Je ferais mieux d’aller me coucher.",
-      illustration = "resources/images/shell.png"
+      illustration = "resources/images/cupOfTea.png"
     }
   },
   sentence = "Si tu ne fais rien, tu perdras ton amie à cause des vents violents",
