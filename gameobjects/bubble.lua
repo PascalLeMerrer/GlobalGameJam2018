@@ -26,7 +26,7 @@ function Bubble:init(x, y, label, type, world)
   self.type = type
   self.label = label
   self.radius = RADIUS
-  self.scale = 1
+  self.scale = math.random(9, 11) / 10
   self.body = HC.circle(x, y, self.radius * self.scale)
   self.x, self.y = self.body:center()
   self.body.velocity = {}
@@ -45,7 +45,6 @@ function Bubble:init(x, y, label, type, world)
   self.destructionAnimation:pause()
   self.isDestroyed = false
   self.isBeingDestroyed = false
-
 
   self.spawnAnimation = anim8.newAnimation(grid(FRAMES_FOR_SPAWN_ANIMATION, FRAME_ROW_SPAWN), ANIMATION_STEP_DURATION, function()
       self.isSpawning = false
@@ -89,9 +88,9 @@ function Bubble:draw()
   love.graphics.setColor(255, 255, 255)
   local x, y = self.body:center()
   if self.isSpawning then
-    self.spawnAnimation:draw(image, x - self.radius, y - self.radius)
+    self.spawnAnimation:draw(image, x - self.radius, y - self.radius, 0, self.scale, self.scale)
   else
-    self.destructionAnimation:draw(image, x - self.radius, y - self.radius)
+    self.destructionAnimation:draw(image, x - self.radius, y - self.radius, 0, self.scale, self.scale)
   end
 
   love.graphics.setFont(bubbleFont)
